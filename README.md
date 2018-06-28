@@ -1,4 +1,4 @@
-# pgeo
+# pgeo.latlng
 This package is identical to [pgeo](https://github.com/saulortega/pgeo) except that Point is defined as Point{ Lat, Lng } instead of Point{ X, Y }
 
 Package pgeo implements [geometric types for Postgres](https://www.postgresql.org/docs/current/static/datatype-geometric.html)
