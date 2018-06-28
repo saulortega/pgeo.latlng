@@ -1,6 +1,7 @@
 package pgeo
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"math/rand"
@@ -126,4 +127,16 @@ func randNegPos() float64 {
 		n = -1
 	}
 	return n
+}
+
+func UnmarshalPoint(pnt []byte) (Point, error) {
+	var point = Point{}
+	var err = json.Unmarshal(pnt, &point)
+	return point, err
+}
+
+func UnmarshalPoints(pnts []byte) ([]Point, error) {
+	var points = []Point{}
+	var err = json.Unmarshal(pnts, &points)
+	return points, err
 }
