@@ -7,10 +7,10 @@ It uses Scanner and Valuer interfaces from `database/sql`
 # Types
 ```go
 //Points are the fundamental two-dimensional building block for geometric types.
-//X and Y are the respective coordinates, as floating-point numbers
+//Lat and Lng are the respective coordinates, as floating-point numbers
 type Point struct {
-	X float64 `json:"x"`
-	Y float64 `json:"y"`
+	Lat float64 `json:"lat"`
+	Lng float64 `json:"lng"`
 }
 
 //Circles are represented by a center point and radius.
@@ -59,7 +59,7 @@ type NullPoint struct {
 
 ### Create Types
 ```go
-NewPoint(X, Y float64) Point
+NewPoint(Lat, Lng float64) Point
 
 NewLine(A, B, C float64) Line
 
@@ -110,6 +110,6 @@ NewRandCircle() Circle
 
 ### Zero Point
 ```go
-//Returns a Point X=0, Y=0
+//Returns a Point Lat=0, Lng=0
 NewZeroPoint() Point
 ```
