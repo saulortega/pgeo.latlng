@@ -129,14 +129,72 @@ func randNegPos() float64 {
 	return n
 }
 
-func UnmarshalPoint(pnt []byte) (Point, error) {
+//
+
+func UnmarshalPoint(JSON []byte) (Point, error) {
 	var point = Point{}
-	var err = json.Unmarshal(pnt, &point)
+	var err = json.Unmarshal(JSON, &point)
 	return point, err
 }
 
-func UnmarshalPoints(pnts []byte) ([]Point, error) {
+func UnmarshalPoints(JSON []byte) ([]Point, error) {
 	var points = []Point{}
-	var err = json.Unmarshal(pnts, &points)
+	var err = json.Unmarshal(JSON, &points)
 	return points, err
+}
+
+func UnmarshalCircle(JSON []byte) (Circle, error) {
+	var circle = Circle{}
+	var err = json.Unmarshal(JSON, &circle)
+	return circle, err
+}
+
+func UnmarshalBox(JSON []byte) (Box, error) {
+	var points, err = UnmarshalPoints(JSON)
+	if err != nil {
+		return Box{}, err
+	} else if len(points) != 2 {
+		return Box{}, errors.New("wrong box")
+	}
+
+	return Box{points[0], points[1]}, nil
+}
+
+func UnmarshalPath(JSON []byte) (Path, error) {
+	var points, err = UnmarshalPoints(JSON)
+	if err != nil {
+		return Path{}, err
+	} else if len(points) < 2 {
+		return Path{}, errors.New("wrong path")
+	}
+
+	return Path{points, points[0] == points[len(points)-1]}, nil
+}
+
+func UnmarshalPolygon(JSON []byte) (Polygon, error) {
+	var points, err = UnmarshalPoints(JSON)
+	if err != nil {
+		return Polygon{}, err
+	} else if len(points) < 3 {
+		return Polygon{}, errors.New("wrong polygon")
+	}
+
+	return Polygon(points), nil
+}
+
+func UnmarshalLine(JSON []byte) (Line, error) {
+	var line = Line{}
+	var err = json.Unmarshal(JSON, &line)
+	return line, err
+}
+
+func UnmarshalLseg(JSON []byte) (Lseg, error) {
+	var points, err = UnmarshalPoints(JSON)
+	if err != nil {
+		return Lseg{}, err
+	} else if len(points) != 2 {
+		return Lseg{}, errors.New("wrong lseg")
+	}
+
+	return Lseg{points[0], points[1]}, nil
 }
