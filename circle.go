@@ -10,7 +10,7 @@ import (
 
 // Circles are represented by a center point and radius.
 type Circle struct {
-	Point
+	Point          //`json:"point"`
 	Radius float64 `json:"radius"`
 }
 
